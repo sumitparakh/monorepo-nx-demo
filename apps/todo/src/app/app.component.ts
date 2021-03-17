@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@monorepo-nx-demo/api-interfaces';
+import { Task } from '@monorepo-nx-demo/api-interfaces';
 
 @Component({
   selector: 'monorepo-nx-demo-root',
@@ -8,6 +8,6 @@ import { Message } from '@monorepo-nx-demo/api-interfaces';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  hello$ = this.http.get<Message>('/api/hello');
+  tasks$ = this.http.get<Task>('/api/tasks');
   constructor(private http: HttpClient) {}
 }

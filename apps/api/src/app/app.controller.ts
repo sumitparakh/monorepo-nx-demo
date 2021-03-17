@@ -1,15 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@monorepo-nx-demo/api-interfaces';
+import { Task } from '@monorepo-nx-demo/api-interfaces';
 
-import { AppService } from './app.service';
+import { TaskService } from './task.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly taskService: TaskService) {}
 
-  @Get('hello')
-  getData(): Message {
-    return this.appService.getData();
+  @Get('tasks')
+  getData(): Task[] {
+    return this.taskService.getTasks();
   }
 }
