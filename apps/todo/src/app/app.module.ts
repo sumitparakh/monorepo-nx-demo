@@ -6,15 +6,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderModule } from './header/header.module';
 import { CommonModule } from '@angular/common';
+import { TaskModule } from './task/task.module';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, 
-    HttpClientModule, 
+    BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     HeaderModule,
-    CommonModule
+    TaskModule,
+    AppRoutingModule,
+    RouterModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
