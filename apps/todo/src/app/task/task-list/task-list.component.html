@@ -1,6 +1,6 @@
 <div class="tasklist-content" *ngFor="let task of tasks; trackBy: taskTrackBy">
   <mat-card>
-    {{ task.id }}
+    {{ task.id }}.
     {{ task.task }}
 
     <mat-icon (click)="deleteTask(task.id)">delete</mat-icon>
