@@ -1,40 +1,42 @@
 {
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
     "nx.json": "*"
   },
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "npmScope": "monorepo-nx-demo",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-storybook"
+        ]
       }
     }
   },
   "projects": {
-    "todo": {
-      "tags": []
-    },
-    "todo-e2e": {
+    "todo": { "tags": [] },
+    "todo-e2e": { "tags": [], "implicitDependencies": ["todo"] },
+    "api": { "tags": [] },
+    "api-interfaces": { "tags": [] },
+    "admin-backoffice": { "tags": [] },
+    "admin-backoffice-e2e": {
       "tags": [],
-      "implicitDependencies": ["todo"]
+      "implicitDependencies": ["admin-backoffice"]
     },
-    "api": {
-      "tags": []
-    },
-    "api-interfaces": {
-      "tags": []
+    "uikit-react-components": { "tags": [] },
+    "uikit-react-components-e2e": {
+      "tags": [],
+      "implicitDependencies": ["uikit-react-components"]
     }
   }
 }

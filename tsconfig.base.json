@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@monorepo-nx-demo/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@monorepo-nx-demo/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@monorepo-nx-demo/uikit/react-components": [
+        "libs/uikit/react-components/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

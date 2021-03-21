@@ -29,6 +29,20 @@
     },
     "@nrwl/angular:component": {
       "style": "scss"
+    },
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint"
+      }
     }
   },
   "projects": {
@@ -48,7 +62,10 @@
             "tsConfig": "apps/todo/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/todo/src/favicon.ico", "apps/todo/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/todo/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/todo/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -204,6 +221,186 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+          }
+        }
+      }
+    },
+    "admin-backoffice": {
+      "root": "apps/admin/backoffice",
+      "sourceRoot": "apps/admin/backoffice/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/admin/backoffice",
+            "index": "apps/admin/backoffice/src/index.html",
+            "main": "apps/admin/backoffice/src/main.tsx",
+            "polyfills": "apps/admin/backoffice/src/polyfills.ts",
+            "tsConfig": "apps/admin/backoffice/tsconfig.app.json",
+            "assets": [
+              "apps/admin/backoffice/src/favicon.ico",
+              "apps/admin/backoffice/src/assets"
+            ],
+            "styles": ["apps/admin/backoffice/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/admin/backoffice/src/environments/environment.ts",
+                  "with": "apps/admin/backoffice/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "admin-backoffice:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "admin-backoffice:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/admin/backoffice/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/admin/backoffice"],
+          "options": {
+            "jestConfig": "apps/admin/backoffice/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "admin-backoffice-e2e": {
+      "root": "apps/admin/backoffice-e2e",
+      "sourceRoot": "apps/admin/backoffice-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/admin/backoffice-e2e/cypress.json",
+            "tsConfig": "apps/admin/backoffice-e2e/tsconfig.e2e.json",
+            "devServerTarget": "admin-backoffice:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "admin-backoffice:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/admin/backoffice-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "uikit-react-components": {
+      "root": "libs/uikit/react-components",
+      "sourceRoot": "libs/uikit/react-components/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/uikit/react-components/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/uikit/react-components"],
+          "options": {
+            "jestConfig": "libs/uikit/react-components/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/uikit/react-components/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/uikit-react-components",
+            "config": {
+              "configFolder": "libs/uikit/react-components/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "uikit-react-components-e2e": {
+      "root": "apps/uikit-react-components-e2e",
+      "sourceRoot": "apps/uikit-react-components-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/uikit-react-components-e2e/cypress.json",
+            "tsConfig": "apps/uikit-react-components-e2e/tsconfig.e2e.json",
+            "devServerTarget": "uikit-react-components:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "uikit-react-components:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/uikit-react-components-e2e/**/*.{js,ts}"]
           }
         }
       }
