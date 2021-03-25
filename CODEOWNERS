@@ -4,3 +4,8 @@
 /apps/uikit-react-components-e2e/ @sujan
 /libs/api-interfaces/ @bob
 /libs/uikit/  @sumitparakh
+
+*.js  @bob
+
+/apps/* @sujan
+
