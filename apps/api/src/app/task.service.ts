@@ -17,7 +17,7 @@ export class TaskService {
       const id = tasks.id().value();
       task.id = id;
       tasks.push(task).write();
-      return { success_message: 'New task created successfully' };
+      return { success_message: 'New task created successfully!' };
     } catch (error) {
       return { error_message: error };
     }
@@ -26,7 +26,7 @@ export class TaskService {
   deleteTask(id: number) {
     try {
       this.dbService.db.get('tasks').remove({ id: +id }).write();
-      return { success_message: 'Task deleted successfully' }; 
+      return { success_message: 'Task deleted successfully' };
     } catch (error) {
       return { error_message: error };
     }
