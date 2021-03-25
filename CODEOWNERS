@@ -1,0 +1,6 @@
+apps/pyapp/*  @sujan
+apps/api/*  @bob
+apps/todo/* @sumitparakh
+apps/uikit-react-components-e2e/* @sujan @bob @sumitparakh
+libs/api-interfaces/* @bob
+libs/uikit/*  @sujan @bob @sumitparakh
